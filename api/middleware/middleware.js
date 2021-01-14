@@ -23,16 +23,14 @@ async function validateUserId(req, res, next) {
   }
 }
 
-async function validateUser(req, res, next) {
-  const { id } = req.params
+function validateUser(req, res, next) {
   const { body } = req
-  const user = await Users.update(id, body)
-  if (!user) {
+  if (!body) {
     res.status(400).json({ errorMessage: "missing user data"})
-  } else if (!user.name) {
+  } else if (!body.name) {
     res.status(404).json({ errorMessage: "missing required name field"})
   } else {
-    req.body = user
+    req.body = body
     next()
   }
 }

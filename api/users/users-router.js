@@ -5,11 +5,11 @@ const router = express.Router();
 
 const { validateUserId, validateUser } = require("../middleware/middleware")
 
-// WIP
 router.post('/', validateUser, (req, res, next) => {
-  Users.insert(req.body)
+  const { body } = req
+  Users.insert(body)
     .then(newUser => {
-      res.status(200).json(newUser)
+      res.status(201).json(newUser)
     })
     .catch(next)
 });
