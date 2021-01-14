@@ -14,7 +14,6 @@ router.post('/', validateUser, (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-  // do your magic!
   Users.get()
     .then(users => {
       if (!users) {
@@ -34,7 +33,7 @@ router.get('/:id', validateUserId, (req, res) => {
 router.delete('/:id', validateUserId, (req, res, next) => {
   Users.remove(req.params.id)
     .then(() => {
-      res.status(200).json("User has been deleted")
+      res.status(200).json({ message: "The user has been deleted" })
     })
     .catch(next)
 });
@@ -72,5 +71,4 @@ router.use((error, req, res, next) => {
   })
 })
 
-// do not forget to export the router
 module.exports = router

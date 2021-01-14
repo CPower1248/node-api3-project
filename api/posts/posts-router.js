@@ -1,19 +1,34 @@
 const express = require('express');
+const Posts = require("./posts-model")
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  // do your magic!
+const { validatePostId } = require("../middleware/middleware")
+
+router.get('/', (req, res, next) => {
+  Posts.get()
+    .then(posts => {
+      if (!posts) {
+        res.status(404).json({ errorMessage: "No posts were found"})
+      } else {
+        res.status(200).json(posts)
+      }
+    })
+    .catch(next)
 });
 
-router.get('/:id', (req, res) => {
-  // do your magic!
-  // this needs a middleware to verify post id
+router.get('/:id', validatePostId, (req, res) => {
+  const { post } = req
+  res.status(200).json(post)
 });
 
-router.delete('/:id', (req, res) => {
-  // do your magic!
-  // this needs a middleware to verify post id
+router.delete('/:id', validatePostId, (req, res, next) => {
+  const { id } = req.params
+  Posts.remove(id)
+    .then(() => {
+      res.status(200).json({ message: "The post has been deleted" })
+    })
+    .catch(next)
 });
 
 router.put('/:id', (req, res) => {
@@ -21,5 +36,12 @@ router.put('/:id', (req, res) => {
   // this needs a middleware to verify post id
 });
 
-// do not forget to export the router
+router.use((error, req, res, next) => {
+  res.status(500).json({ 
+    error: "There was a problem communicating with the server",
+    message: error.message,
+    stack: error.stack
+  })
+})
+
 module.exports = router
