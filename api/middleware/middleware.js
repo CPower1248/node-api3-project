@@ -2,7 +2,6 @@ const Users = require("../users/users-model")
 const Posts = require("../posts/posts-model")
 
 function logger({ method, baseUrl, url }, res, next) {
-  // do your magic!
   console.log("REQ METHOD: ", method)
   console.log("REQ URL: ", "http://localhost:5000", baseUrl, url)
   console.log("REQ TIMESTAMP: ", new Date())
@@ -27,7 +26,6 @@ async function validateUserId(req, res, next) {
 async function validateUser(req, res, next) {
   const { id } = req.params
   const { body } = req
-  // do your magic!
   const user = await Users.update(id, body)
   if (!user) {
     res.status(400).json({ errorMessage: "missing user data"})
@@ -40,7 +38,6 @@ async function validateUser(req, res, next) {
 }
 
 async function validatePostId(req, res, next) {
-  // do your magic!
   const { id } = req.params
   try {
     const post = await Posts.getById(id)
@@ -55,9 +52,9 @@ async function validatePostId(req, res, next) {
   }
 }
 
+// WIP
 function validatePost(req, res, next) {
   // do your magic!
 }
 
-// do not forget to expose these functions to other modules
 module.exports = { logger, validateUserId, validateUser, validatePostId }

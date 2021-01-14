@@ -31,6 +31,7 @@ router.delete('/:id', validatePostId, (req, res, next) => {
     .catch(next)
 });
 
+// WIP
 router.put('/:id', (req, res) => {
   // do your magic!
   // this needs a middleware to verify post id

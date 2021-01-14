@@ -5,6 +5,7 @@ const router = express.Router();
 
 const { validateUserId, validateUser } = require("../middleware/middleware")
 
+// WIP
 router.post('/', validateUser, (req, res, next) => {
   Users.insert(req.body)
     .then(newUser => {
@@ -38,6 +39,7 @@ router.delete('/:id', validateUserId, (req, res, next) => {
     .catch(next)
 });
 
+// WIP
 router.put('/:id', validateUserId, validateUser, (req, res, next) => {
   Users.update(req.params.id, req.body)
     .then(updatedUser => {
@@ -46,6 +48,7 @@ router.put('/:id', validateUserId, validateUser, (req, res, next) => {
     .catch(next)
 });
 
+// WIP
 router.post('/:id/posts', validateUserId, validateUser, (req, res, next) => {
   // do your magic!
   // this needs a middleware to verify user id
@@ -58,6 +61,7 @@ router.post('/:id/posts', validateUserId, validateUser, (req, res, next) => {
     .catch(next)
 });
 
+// WIP
 router.get('/:id/posts', validateUserId, (req, res, next) => {
   // do your magic!
   // this needs a middleware to verify user id
