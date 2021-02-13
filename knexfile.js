@@ -18,4 +18,16 @@ module.exports = {
       directory: './data/seeds',
     },
   },
+
+  production: {
+    client: 'sqlite3',
+    useNullAsDefault: true,
+    connection: {
+      filename: './data/blog.db3',
+    },
+    migrations: {
+      directory: './data/migrations',
+      tableName: 'knex_migrations',
+    },
+  }
 };
